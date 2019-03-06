@@ -14,7 +14,8 @@ export class AppController {
     @Get('/configuration')
     public getConfiguration(): any {
         return {
-            backendUrl: process.env.backendUrl,
+            resourceServerA: process.env.resourceServerA,
+            resourceServerB: process.env.resourceServerB,
             stage: process.env.stage
         };
     }
