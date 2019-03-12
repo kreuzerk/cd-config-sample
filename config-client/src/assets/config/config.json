@@ -1,0 +1,5 @@
+{
+  "resourceServerA": "http://resourceA.dev.com",
+  "resourceServerB": "http://resourceB.dev.com",
+  "stage": "dev"
+}
