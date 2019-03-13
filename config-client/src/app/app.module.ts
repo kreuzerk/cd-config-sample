@@ -1,8 +1,10 @@
 import {BrowserModule} from '@angular/platform-browser';
-import {NgModule} from '@angular/core';
+import {APP_INITIALIZER, NgModule} from '@angular/core';
 
 import {AppComponent} from './app.component';
 import {HttpClientModule} from '@angular/common/http';
+import {ConfigurationService} from './configuration.service';
+import {ConfigAssetLoaderService} from './config-asset-loader.service';
 
 @NgModule({
   declarations: [
@@ -12,7 +14,20 @@ import {HttpClientModule} from '@angular/common/http';
     BrowserModule,
     HttpClientModule
   ],
-  providers: [],
+  providers: [
+    {
+      provide: APP_INITIALIZER,
+      useFactory: (configService: ConfigurationService) => () => configService.loadConfigurations().toPromise(),
+      deps: [ConfigurationService],
+      multi: true
+    },
+    {
+      provide: APP_INITIALIZER,
+      useFactory: (configAssetService: ConfigAssetLoaderService) => () => configAssetService.loadConfigurations().toPromise(),
+      deps: [ConfigAssetLoaderService],
+      multi: true
+    }
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule {

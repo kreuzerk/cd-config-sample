@@ -10,9 +10,9 @@ interface Configuration {
 }
 
 @Injectable({providedIn: 'root'})
-export class ConfigurationService {
+export class ConfigAssetLoaderService {
 
-  private readonly BACKEND_URL = 'http://localhost:3000';
+  private readonly CONFIG_URL = 'assets/config/config.json';
   private configuration$: Observable<Configuration>;
 
   constructor(private http: HttpClient) {
@@ -20,7 +20,7 @@ export class ConfigurationService {
 
   public loadConfigurations(): any {
     if (!this.configuration$) {
-      this.configuration$ = this.http.get<Configuration>(`${this.BACKEND_URL}/configuration`).pipe(
+      this.configuration$ = this.http.get<Configuration>(this.CONFIG_URL).pipe(
         shareReplay(1)
       );
     }
